@@ -1,6 +1,8 @@
 -- Median function takes in list of Num and returns the median
 
 median :: ( Real a, RealFrac a) => [a] -> a
+median [] = error "median: empty list"
+median [x]=x
 median x
   |(length x) `mod` 2==1 = sx!!(((length x) `div` 2))
   |otherwise = (sx!!((((length x) `div` 2)))+(sx!!(((length x) `div` 2)-1))) / 2
@@ -9,6 +11,7 @@ median x
 -- Merge sort used by median
 
 mergeSort :: ( RealFrac a)=>[a]-> [a]
+mergeSort []    = error "mergeSort: empty list"
 mergeSort [x]=[x]
 mergeSort x= mergeSort (take  ( (length x)`div`2) x) `merge` mergeSort (drop ( (length x)`div`2) x)
 

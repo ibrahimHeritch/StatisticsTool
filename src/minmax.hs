@@ -16,8 +16,7 @@ getMax [x] = Just xs
 getMax (x:xs) max x <$> getMax xs
 
 max :: Int -> Int -> Int
-max a b 
+max a b
     | a > b = a
     | a < b = b
     | a == b = a
-
