@@ -1,7 +1,14 @@
 import System.IO
+import Data.List.Split
+import Data.Typeable
 
-main = do
-    handle <- openFile "statsNumbers.txt" ReadMode
-    contents <- hGetContents handle
-    putStr contents
-    hClose handle
+
+readFloat :: String -> IO Float
+readFloat = read
+
+getInput :: FilePath -> [Float]
+getInput input = do
+    contents <- readFile "statsNumbers.txt" 
+    l <- sequence contents 
+    map readFloat . words $ l
+    
