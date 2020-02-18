@@ -4,7 +4,7 @@ import Data.Typeable
 import Control.Monad
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
-import median
+
 
 
 readFloat :: String -> Float
@@ -20,4 +20,3 @@ getData fileName= do
 main = do
       d<-getData "statsNumbers.txt"
       putStr (show (d))
-      Median d
