@@ -1,3 +1,6 @@
+module Median(
+median
+)where
 -- Median function takes in list of Num and returns the median
 
 median :: ( Real a, RealFrac a) => [a] -> a
