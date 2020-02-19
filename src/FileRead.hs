@@ -21,3 +21,4 @@ main = do
       d<-getData "statsNumbers.txt"
       putStr ("The Data is :"++show (d)++"\n")
       putStr("Median is "++show(median d)++"\n")
+      putStr(show (typeOf d))
