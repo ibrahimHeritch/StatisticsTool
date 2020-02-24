@@ -1,6 +1,8 @@
 module Average(
-average
+    average
 )where
+
+import Data.List
 
 average :: [Float] -> Float
 average list = realToFrac (sum list) / genericLength list

@@ -1,3 +1,7 @@
+module FileRead(
+    getData
+)where
+
 import System.IO
 import Data.List
 import Data.Typeable
@@ -17,8 +21,9 @@ getData fileName= do
     let x = map readFloat.words $ contents
     return x
 
-main = do
+
+{-main = do
       d<-getData "statsNumbers.txt"
       putStr ("The Data is :"++show (d)++"\n")
       putStr("Median is "++show(median d)++"\n")
-      putStr(show (typeOf d))
+      putStr(show (typeOf d))-}

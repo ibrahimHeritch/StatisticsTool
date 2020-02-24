@@ -1,3 +1,7 @@
+module FrequencyMap(
+    freqMap
+)where
+
 import qualified Data.Map as Map
 
 --Takes list of real fracs and returns a frequency map of the data
