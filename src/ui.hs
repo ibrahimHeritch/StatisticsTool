@@ -24,10 +24,10 @@ main = do
     choice <- getChar
     clear <- getChar --this is janky please don't delete
     let upperChoice = toUpper choice
-    
+
     d<-getData "statsNumbers.txt"
-    
-    
+
+
     if upperChoice == 'A'
         then do
             putStrLn "Finding the average..."
@@ -60,6 +60,3 @@ main = do
         then do
             putStrLn "The program has ended."
     else putStrLn "Invalid input. Ending program."
-        
-
-
