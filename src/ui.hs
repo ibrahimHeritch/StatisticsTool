@@ -10,6 +10,9 @@ import System.IO
 import Data.Foldable (for_)
 import Data.Map
 import ZScore
+import StdDev
+import Variance
+
 
 main = do
     putStrLn "-----Simple Statistics Calculator-----"
@@ -18,7 +21,10 @@ main = do
     putStrLn "b) Find Min and Max."
     putStrLn "c) Find the Median."
     putStrLn "d) Find the Frequency List."
-    putStrLn "e) Find the Z-score."
+    putStrLn "e) Find the Variance."
+    putStrLn "f) Find the Standard Deviation."
+    putStrLn "g) Find the Z-score."
+    putStrLn "h) Add to the data set."
     putStrLn "-) Quit the program."
 
     choice <- getChar
@@ -51,12 +57,27 @@ main = do
             main
     else if upperChoice == 'E'
         then do
+            putStrLn(show (variance d))
+            main
+    else if upperChoice == 'F'
+        then do
+            putStrLn(show (stdDev d))
+            main
+    else if upperChoice == 'G'
+        then do
             putStrLn "Enter the raw score for which you would like to find the Z-score: "
             rawScore <- readLn
             putStrLn "Finding the Z-score..."
-            putStrLn(show( zscore (rawScore :: Float) (average d) 20) ) --NOTE the 20 will be replaced with call to std. dev. func.
+            putStrLn(show( zscore (rawScore :: Float) (average d) (stdDev d))) --NOTE the 20 will be replaced with call to std. dev. func.
+            main
+    else if upperChoice == 'H'
+        then do
+            putStrLn "Enter the number: "
+            number <- getLine
+            appendFile "statsNumbers.txt" ("\n" ++ number)
             main
     else if upperChoice == '-'
         then do
             putStrLn "The program has ended."
     else putStrLn "Invalid input. Ending program."
+;
