@@ -72,7 +72,7 @@ main = do
             putStrLn "Enter the raw score for which you would like to find the Z-score: "
             rawScore <- readLn
             putStrLn "Finding the Z-score..."
-            putStrLn(show( zscore (rawScore :: Float) (average d) (stdDev d))) 
+            putStrLn(show( zscore (rawScore :: Float) (average d) (stdDev d)))
             main
     else if upperChoice == 'H'
         then do

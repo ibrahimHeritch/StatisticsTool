@@ -123,14 +123,14 @@ scaleYintercept points y = round(y / step)
 --end functions
 drawScatterPlot outputPath points = writePng  outputPath ( generateImage (scatterPlotPixelMapper (\y ->870-(y - 30))(\x ->(x - 30))(s) Set.empty ) xSize ySize)
                                   where
-                                    s = Set.fromList(scalePoints points)
+                                    s = Set.fromList(map (\(x , y)-> ((x `div` 7) * 7,(y `div` 7) * 7)) (scalePoints points))
                                     xSize = 900
                                     ySize = 900
 
 
 drawBestfitLine outputPath points lineData = writePng  outputPath ( generateImage (scatterPlotPixelMapper (\y ->870-(y - 30))(\x ->(x - 30))(s) bestfitLine) xSize ySize)
                                       where
-                                        s = Set.fromList(scalePoints points)
+                                        s = Set.fromList(map (\(x , y)-> ((x `div` 7) * 7,(y `div` 7) * 7)) (scalePoints points))
                                         scaledY = scaleYintercept points (snd lineData)
                                         xSize = 900
                                         ySize = 900
