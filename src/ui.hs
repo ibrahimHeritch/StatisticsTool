@@ -12,6 +12,7 @@ import Data.Map
 import ZScore
 import StdDev
 import Variance
+import Quartiles
 
 
 main = do
@@ -24,14 +25,17 @@ main = do
     putStrLn "e) Find the Variance."
     putStrLn "f) Find the Standard Deviation."
     putStrLn "g) Find the Z-score."
-    putStrLn "h) Add to the data set."
+    putStrLn "h) Find the First Quartile."
+    putStrLn "i) Find the Third Quartile."
+    putStrLn "j) Find the Inner Quartile Range."
+    putStrLn "k) Add to the data set."
     putStrLn "-) Quit the program."
 
     choice <- getChar
     clear <- getChar --this is janky please don't delete
     let upperChoice = toUpper choice
 
-    d<-getData "statsNumbers.txt"
+    d<-getData "test.txt"
 
 
     if upperChoice == 'A'
@@ -68,9 +72,21 @@ main = do
             putStrLn "Enter the raw score for which you would like to find the Z-score: "
             rawScore <- readLn
             putStrLn "Finding the Z-score..."
-            putStrLn(show( zscore (rawScore :: Float) (average d) (stdDev d))) --NOTE the 20 will be replaced with call to std. dev. func.
+            putStrLn(show( zscore (rawScore :: Float) (average d) (stdDev d))) 
             main
     else if upperChoice == 'H'
+        then do
+            putStrLn (show (quartile1 d))
+            main
+    else if upperChoice == 'I'
+        then do
+            putStrLn (show (quartile3 d))
+            main
+    else if upperChoice == 'J'
+        then do
+            putStrLn (show (innerQuartile d))
+            main
+    else if upperChoice == 'K'
         then do
             putStrLn "Enter the number: "
             number <- getLine

@@ -3,6 +3,7 @@ module Variance (variance) where
 import Data.List
 import Average
 
+--get length of the list to use in variance calculation
 count::[Float] -> Float
 count = fromIntegral . length
 
