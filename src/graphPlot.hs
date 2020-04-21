@@ -2,6 +2,7 @@ import Codec.Picture
 import Data.HashSet hiding (null, map, filter, foldr)
 import qualified Data.HashSet as Set
 import MinMax
+import qualified Data.Map as Map
 
 scatterPlotPixelMapper yScale xScale points l x y
     | x2 < 0 = PixelRGB8 255 255 255
@@ -135,3 +136,17 @@ drawBestfitLine outputPath points lineData = writePng  outputPath ( generateImag
                                         xSize = 900
                                         ySize = 900
                                         bestfitLine = Set.fromList(line (fst lineData) scaledY (0 ,0) (800,800))
+
+drawLineGraph outputPath points = writePng  outputPath ( generateImage (lineGraphPixelMapper (\y ->870-(y - 30))(\x ->(x - 30))(pnts)) xSize ySize)
+                                where
+                                   xSize = 900
+                                   ySize = 900
+                                   d =  scalePoints points
+                                   pnts = Set.unions((map (\i -> Set.fromList(lineFromPoints (d!!(i-1))(d!!i))) [1..(length(d)-1)]))
+
+
+drawBarGraph outputPath freqmap = writePng  outputPath ( generateImage (barGraphPixelMapper (\y ->870-(y - 30))(\x ->(x - 30))(d)) xSize ySize)
+                                where
+                                   xSize = 900
+                                   ySize = 900
+                                   d =  map (\x -> snd x) (Map.toList(freqmap))
