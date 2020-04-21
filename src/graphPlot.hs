@@ -1,3 +1,5 @@
+module GraphPlot (testSP, drawScatterPlot, drawBarGraph, drawLineGraph) where
+
 import Codec.Picture
 import Data.HashSet hiding (null, map, filter, foldr)
 import qualified Data.HashSet as Set
@@ -21,9 +23,6 @@ scatterPlotPixelMapper yScale xScale points l x y
       y1 = (yScale y)
       x2 = x1 `div` 3
       y2 = y1 `div` 3
-
-
-
 
 lineGraphPixelMapper yScale xScale linePoints x y
     | x2 < 0 = PixelRGB8 255 255 255

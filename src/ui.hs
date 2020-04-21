@@ -13,6 +13,8 @@ import ZScore
 import StdDev
 import Variance
 import Quartiles
+import BestFitEquation
+import GraphPlot
 
 
 main = do
@@ -28,15 +30,17 @@ main = do
     putStrLn "h) Find the First Quartile."
     putStrLn "i) Find the Third Quartile."
     putStrLn "j) Find the Inner Quartile Range."
-    putStrLn "k) Add to the data set."
+    putStrLn "k) Find the Line of Best Fit."
+    putStrLn "l) Draw a Scatter Plot."
+    putStrLn "m) Add to the data set."
     putStrLn "-) Quit the program."
 
     choice <- getChar
     clear <- getChar --this is janky please don't delete
     let upperChoice = toUpper choice
 
-    d<-getData "test.txt"
-
+    d<-getData "statsnumbers.txt"
+    let p = [(1.0, 2.0), (2.0, 4.0), (3.0, 8.0), (6.0, 10.0), (7.0, 13.0), (10.0, 11.0)]
 
     if upperChoice == 'A'
         then do
@@ -87,6 +91,16 @@ main = do
             putStrLn (show (innerQuartile d))
             main
     else if upperChoice == 'K'
+        then do
+            putStr("Slope, Intercept: ")
+            putStrLn(show (bestFitEquation p))
+            main
+    else if upperChoice == 'L'
+        then do
+            testSP
+            putStrLn("Plot drawn in output.png")
+            main
+    else if upperChoice == 'M'
         then do
             putStrLn "Enter the number: "
             number <- getLine
