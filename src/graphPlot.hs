@@ -1,6 +1,7 @@
 import Codec.Picture
 import Data.HashSet hiding (null, map, filter, foldr)
 import qualified Data.HashSet as Set
+import MinMax
 
 scatterPlotPixelMapper yScale xScale points l x y
     | x2 < 0 = PixelRGB8 255 255 255
@@ -66,7 +67,7 @@ lineFromPoints point1 point2 = line a b point1 point2
 
 line a b start end
     | a < 1.0 = (foldr (++) ([]) (map generateYs  [( fst start)..(fst end)]))
-    | a >= 1.0 = (foldr (++) ([]) (map generateXs  [( snd start)..(snd end)]))
+    | otherwise = (foldr (++) ([]) (map generateXs  [( snd start)..(snd end)]))
     where
       roundY x = round((fromIntegral(x)*a) + b)
       roundX y = round((fromIntegral(y)-b)/a)
@@ -98,3 +99,39 @@ testBG = writePng  outputFile ( generateImage (barGraphPixelMapper (\y ->870-(y 
             xSize = 900
             ySize = 900
             d =  [20, 30, 40, 240, 55, 160, 153, 67, 345]
+
+
+--Scaling function
+
+
+scalePoints poits = map (\p -> (scaleX(fst p), scaleY(snd p))) poits
+                   where
+                      maxX = getMax(map (\p -> (fst p)) poits)
+                      maxY = getMax(map (\p -> (snd p)) poits)
+                      step = getMax([maxX,maxY])/800
+                      scaleX = (\x -> round(x / step))
+                      scaleY = (\y -> round(y / step))
+
+
+
+scaleYintercept points y = round(y / step)
+                   where
+                      maxX = getMax(map (\p -> (fst p)) points)
+                      maxY = getMax(map (\p -> (snd p)) points)
+                      step = getMax([maxX,maxY])/800
+
+--end functions
+drawScatterPlot outputPath points = writePng  outputPath ( generateImage (scatterPlotPixelMapper (\y ->870-(y - 30))(\x ->(x - 30))(s) Set.empty ) xSize ySize)
+                                  where
+                                    s = Set.fromList(scalePoints points)
+                                    xSize = 900
+                                    ySize = 900
+
+
+drawBestfitLine outputPath points lineData = writePng  outputPath ( generateImage (scatterPlotPixelMapper (\y ->870-(y - 30))(\x ->(x - 30))(s) bestfitLine) xSize ySize)
+                                      where
+                                        s = Set.fromList(scalePoints points)
+                                        scaledY = scaleYintercept points (snd lineData)
+                                        xSize = 900
+                                        ySize = 900
+                                        bestfitLine = Set.fromList(line (fst lineData) scaledY (0 ,0) (800,800))
